@@ -37,7 +37,7 @@ This is a **Digital Prescription and Medication Reminder App** that helps doctor
 ## Technologies Used
 - **Frontend:** React, TailwindCSS, Flowbite, Lucide-react (for icons), AOS Animations
 - **State Management:** Redux Toolkit
-- **Backend:** Node.js, Express.js
+- **Backend:** Node.js, Express.js, completely used MVC-R model
 - **Authentication:** JWT Authentication
 - **Database:** MongoDB (using Mongoose)
 - **Other Libraries:** Axios, QR Code generation
