@@ -1,5 +1,5 @@
 const express = require("express");
-const { signup, login, findUser, verifyEmail, resetPassword, createPrescription, prescriptionList, patientsList, doctorProfile, updateProfile, addProfile, qrcodeFunc, qrcodeforPatient, prescriptionListforPatient, getRemindersByPatient, updateReminder } = require('../../controller/web/userController.js');
+const { signup, login, findUser, verifyEmail, resetPassword, createPrescription, prescriptionList, patientsList, doctorProfile, updateProfile, addProfile, qrcodeFunc, qrcodeforPatient, prescriptionListforPatient, getRemindersByPatient, updateReminder, patientProfile, updatePatientProfile, addPatientProfile } = require('../../controller/web/userController.js');
 const authMiddleware = require('../../../Config/authMiddleware.js');
 const authPatientMiddleware = require('../../../Config/authPatientMiddleware.js');
 let routes = express.Router();
@@ -21,6 +21,9 @@ routes.get('/latest-qr', authPatientMiddleware, qrcodeforPatient);
 routes.get('/patient-prescription', authPatientMiddleware, prescriptionListforPatient);
 routes.get('/reminders', authPatientMiddleware, getRemindersByPatient);
 routes.put('/update-reminder', authPatientMiddleware, updateReminder);
+routes.get('/patient-profile', patientProfile);
+routes.put('/patient-profile', authPatientMiddleware, updatePatientProfile);
+routes.post('/patient-profile', authPatientMiddleware, addPatientProfile);
 
 // Example protected route (Doctor's Dashboard)
 routes.get("/doctor-dashboard", authMiddleware, (req, res) => {

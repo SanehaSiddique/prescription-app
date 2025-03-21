@@ -336,6 +336,7 @@ const addProfile = async (req, res) => {
 };
 
 const QRCode = require('qrcode');
+const Patient = require('../../models/patient.model.js');
 
 const qrcodeFunc = async (req, res) => {
     try {
@@ -515,27 +516,116 @@ const getRemindersByPatient = async (req, res) => {
 
 const updateReminder = async (req, res) => {
     try {
-      const { id } = req.query; // Extract ID from query parameters
-      const { status } = req.body;
-      
-      if (!id) {
-        return res.status(400).json({ error: "Reminder ID is required" });
-      }
-    
-      const reminder = await Reminder.findById(id);
-      if (!reminder) {
-        return res.status(404).json({ error: "Reminder not found" });
-      }
-    
-      reminder.status = status || "Taken";
-      await reminder.save();
-    
-      res.json({ message: "Reminder updated successfully", reminder });
+        const { id } = req.query; // Extract ID from query parameters
+        const { status } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ error: "Reminder ID is required" });
+        }
+
+        const reminder = await Reminder.findById(id);
+        if (!reminder) {
+            return res.status(404).json({ error: "Reminder not found" });
+        }
+
+        reminder.status = status || "Taken";
+        await reminder.save();
+
+        res.json({ message: "Reminder updated successfully", reminder });
     } catch (error) {
-      console.error("Error updating reminder:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+        console.error("Error updating reminder:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-  };
+};
+
+// Fetch doctor's profile
+const patientProfile = async (req, res) => {
+    try {
+        const { email } = req.query; // Make sure the email is sent as a query parameter
+
+        // Validate if email is provided
+        if (!email) {
+            return res.status(400).json({ message: 'Patient email is required' });
+        }
+
+        // Fetch doctor's information
+        const patient = await Patient.findOne({ email });
+
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+
+        res.status(200).json(patient);
+    } catch (error) {
+        console.error('Error fetching doctor information:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// Update doctor's profile
+const updatePatientProfile = async (req, res) => {
+    try {
+        const { email } = req.query;
+        const updateData = req.body;
+
+        // Validate if email is provided
+        if (!email) {
+            return res.status(400).json({ message: 'Patient email is required' });
+        }
+
+        // Update doctor's information
+        const updatedPatient = await Patient.findOneAndUpdate(
+            { email },
+            { $set: updateData, updatedAt: Date.now() },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedPatient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+
+        res.status(200).json(updatedPatient);
+    } catch (error) {
+        console.error('Error updating patient information:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// Add new doctor profile
+const addPatientProfile = async (req, res) => {
+    try {
+        const { name, email, contactNumber, cardNumber, expiryDate, cvv, billingAddress } = req.body;
+
+        // Validate required fields
+        if (!email || !name || !contactNumber || !cardNumber || !expiryDate || !cvv || !billingAddress) {
+            return res.status(400).json({ message: 'All fields are required except bio' });
+        }
+
+        // Check if the doctor already exists
+        const existingPatient = await Patient.findOne({ email });
+        if (existingPatient) {
+            return res.status(400).json({ message: 'Patient profile already exists' });
+        }
+
+        // Create a new doctor profile
+        const newPatient = new Patient({
+            name,
+            email,  
+            contactNumber, 
+            cardNumber, 
+            expiryDate, 
+            cvv, 
+            billingAddress
+        });
+
+        await newPatient.save();
+
+        res.status(201).json(newPatient);
+    } catch (error) {
+        console.error('Error creating patient profile:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 
-module.exports = { signup, login, findUser, verifyEmail, resetPassword, createPrescription, prescriptionList, patientsList, doctorProfile, updateProfile, addProfile, qrcodeFunc, qrcodeforPatient, prescriptionListforPatient, createRemindersFromPrescription, getRemindersByPatient, updateReminder };
+module.exports = { signup, login, findUser, verifyEmail, resetPassword, createPrescription, prescriptionList, patientsList, doctorProfile, updateProfile, addProfile, qrcodeFunc, qrcodeforPatient, prescriptionListforPatient, createRemindersFromPrescription, getRemindersByPatient, updateReminder, patientProfile, updatePatientProfile, addPatientProfile };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../../../axiosInstance";
+import API from "../../axiosInstance";
 import Sidebar from "../components/Sidebar";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";

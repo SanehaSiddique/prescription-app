@@ -123,6 +123,12 @@ const Sidebar = () => {
                                 <span className="ms-3">Reminders</span>
                             </Link>
                         </li>
+                        <li>
+                            <Link to="/patient-profile" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>
+                                <Calendar size={20} />
+                                <span className="ms-3">My Profile</span>
+                            </Link>
+                        </li>
                     </ul>
 
                     {/* Logout Button */}

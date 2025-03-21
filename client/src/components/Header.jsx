@@ -29,9 +29,9 @@ const Header = () => {
                     <button
                         type="button"
                         className="text-white bg-[#3B82F6] hover:bg-[#0967ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:bg-[#3B82F6] dark:hover:bg-[#0967ff] dark:focus:ring-blue-800 cursor-pointer"
-                        onClick={() => navigate("/guest-mode")}
+                        onClick={() => navigate("/signup")}
                     >
-                        Guest Mode
+                        Get Started
                     </button>
                     <button
                         onClick={toggleMenu}

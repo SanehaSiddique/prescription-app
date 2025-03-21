@@ -15,6 +15,7 @@ import CreatePrescription from "./pages/CreatePrescription";
 import Prescriptions from "./pages/Prescriptions";
 import Patients from "./pages/Patients";
 import Profile from "./pages/Profile";
+import PatientProfile from "./pages/PatientProfile";
 import PatientDashboard from "./pages/PatientDashboard";
 import ScanPrescription from "./pages/ScanPrescription";
 import PatientPrescription from "./pages/PatientPrescription";
@@ -111,6 +112,14 @@ function App() {
           element={
             <PrivateRoute>
               <Reminders />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/patient-profile"
+          element={
+            <PrivateRoute>
+              <PatientProfile />
             </PrivateRoute>
           }
         />
