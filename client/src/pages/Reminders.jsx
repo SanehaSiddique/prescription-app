@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import API from "../../../axiosInstance";
+import API from "../../axiosInstance";
 import Swal from "sweetalert2";
 import PatientSidebar from "../components/PatientSidebar";
 import { useNavigate } from "react-router-dom";
