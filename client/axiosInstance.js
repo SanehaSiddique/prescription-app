@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://wwwtest.mexi.care/", // set the backend link
+    baseURL: "http://wwwtest.mexi.care/api/", // set the backend link
 });
 
 // Automatically include token in every request
