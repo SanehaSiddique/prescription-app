@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QrCode, Loader2 } from "lucide-react";
-import API from "../../../axiosInstance";
+import API from "../../axiosInstance";
 import Swal from "sweetalert2";
 import PatientSidebar from "../components/PatientSidebar";
 import { Helmet } from 'react-helmet';

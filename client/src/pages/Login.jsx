@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/slice/auth/authSlice"; // Import the login action
 import { fetchDoctorByEmail } from "../redux/slice/doctorSlice"; // import thunk
 import { fetchPatientByEmail } from "../redux/slice/patientSlice"; // import thunk
-import API from "../../../axiosInstance"
+import API from "../../axiosInstance"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from "react-helmet";
